@@ -1,0 +1,56 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# textrar
+
+https://mt-auto-minhon-mlt.ucri.jgn-x.jp/
+
+
+https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/transLM_ja_en/
+
+## TexTra
+
+
+The goal of pivotea is to translate texts with textra  easily.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+```{r, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("matutosi/textrar")
+```
+
+You can also install from CRAN:
+
+```{r, eval = FALSE}
+install.packages("textrar")
+```
+
+## Example
+
+You can use `textra()` to translate texts with textra  easily.
+
+```{r example}
+library(textrar)
+
+
+```
+
+
+## Citation
+
+Toshikazu Matsumura (2024) textrar. Translate with textra. https://github.com/matutosi/textrar/
