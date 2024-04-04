@@ -1,9 +1,3 @@
-  ## TexTra
-  # https://mt-auto-minhon-mlt.ucri.jgn-x.jp/
-  # https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/transLM_ja_en/
-
-## TexTra
-
 #' Translate text using Transliteration Model
 #'
 #' This function translates text using a transliteration model.
@@ -36,21 +30,6 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
   translated <- extract_result(res)
   return(translated)
 }
-
-#' Return the base URL for the API
-#'
-#' This function returns the base URL for the API.
-#'
-#' @return A string containing the base URL.
-#'
-#' @examples
-#' base_url()
-#' 
-#' @export
-base_url <- function(){
-  return("https://mt-auto-minhon-mlt.ucri.jgn-x.jp")
-}
-
 
 #' Get Access Token
 #'
@@ -90,8 +69,6 @@ get_token <- function(key, secret){
   return(token)
 }
 
-
-
 #' Generate parameters for API call
 #'
 #' This function generates a list of parameters 
@@ -125,7 +102,6 @@ gen_params <- function(key, secret, name, api_name = "mt"){
    return(params)
 }
 
-
 #' Send a POST request to the API
 #'
 #' This function sends a POST request to the API 
@@ -152,7 +128,6 @@ post_request <- function(params, text){
       config = httr::config(ssl_verifypeer = FALSE))
   return(res)
 }
-
 
 #' Extract Translated Text from Response
 #'
@@ -181,4 +156,16 @@ extract_result <- function(res){
     `$`(_, "result") |>
     `$`(_, "text")
   return(translated)
+}
+
+#' Return the base URL for the API
+#'
+#' @return A string containing the base URL.
+#'
+#' @examples
+#' base_url()
+#' 
+#' @export
+base_url <- function(){
+  return("https://mt-auto-minhon-mlt.ucri.jgn-x.jp")
 }
