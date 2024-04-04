@@ -2,20 +2,32 @@
   # https://mt-auto-minhon-mlt.ucri.jgn-x.jp/
   # https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/transLM_ja_en/
 
-
 ## TexTra
 
+#' Translate text using Transliteration Model
+#'
+#' This function translates text using a transliteration model.
+#'
+#' @param text The text to be translated.
+#' @param params A list of parameters to be passed to the API.
+#' @param model The model to be used for translation.
+#' @param from The source language.
+#' @param to The target language.
+#'
+#' @return The translated text.
+#'
 #' @examples
-#' 
+#' \dontrun{
+#' text <- "Hello world"
 #' key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
 #' secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
 #' name <- "login_ID"                                 # login_ID
 #' params <- gen_params(key = key, secret = secret, name = name)
-#' 
-#' text <- "text to be translated"
-#' textra(text = text, params = params, 
-#'   model = "transLM", from = "en", to = "ja")
-#' 
+#' translated <- 
+#'   textra(text, params, model = "transLM", from = "en", to = "ja")
+#' translated
+#' }
+#'
 #' @export
 textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
   api_param <- paste0(model, "_", from, "_", to)
@@ -25,8 +37,12 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
   return(translated)
 }
 
-
-#' Return baseURL character.
+#' Return the base URL for the API
+#'
+#' This function returns the base URL for the API.
+#'
+#' @return A string containing the base URL.
+#'
 #' @examples
 #' base_url()
 #' 
@@ -36,13 +52,22 @@ base_url <- function(){
 }
 
 
-#' get token
+#' Get Access Token
+#'
+#' This function retrieves an access token 
+#' from the API using the provided key and secret.
 #' 
+#' @param key The API key.
+#' @param secret The API secret.
+#'
+#' @return A character string containing the access token.
+#'
 #' @examples
-#' 
+#' \dontrun{
 #' key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
 #' secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
 #' token <- get_token(key = key, secret = secret)
+#' }
 #' 
 #' @export
 get_token <- function(key, secret){
@@ -66,11 +91,27 @@ get_token <- function(key, secret){
 }
 
 
-#' Generate parameters for TexTra
-#' 
+
+#' Generate parameters for API call
+#'
+#' This function generates a list of parameters 
+#' that can be used to make an API call.
+#'
+#' @param key The API key.
+#' @param secret The API secret.
+#' @param name The name of the API.
+#' @param api_name The name of the API to use. Defaults to "mt".
+#'
+#' @return A list of parameters.
+#'
 #' @examples
-#' 
-#' 
+#' \dontrun{
+#' key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
+#' secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
+#' name <- "login_ID"                                 # login_ID
+#' params <- gen_params(key = key, secret = secret, name = name)
+#' }
+#'
 #' @export
 gen_params <- function(key, secret, name, api_name = "mt"){
   token <- get_token(key, secret)
@@ -84,6 +125,23 @@ gen_params <- function(key, secret, name, api_name = "mt"){
    return(params)
 }
 
+
+#' Send a POST request to the API
+#'
+#' This function sends a POST request to the API 
+#' with the specified parameters and text.
+#'
+#' @param params A list of parameters to send in the request.
+#' @param text The text to send in the request.
+#'
+#' @return The response from the API.
+#'
+#' @examples
+#' \dontrun{
+#' post_request(params = , text = "Hello, world!")
+#' }
+#'
+#' @export
 post_request <- function(params, text){
   body <- c(params, list(text = text))
   res <- 
@@ -95,6 +153,23 @@ post_request <- function(params, text){
   return(res)
 }
 
+
+#' Extract Translated Text from Response
+#'
+#' This function extracts the translated text from the response.
+#' returned by the `post_request()` function.
+#'
+#' @param res The response object returned by the `post_request()`.
+#'
+#' @return A character vector containing the translated text.
+#'
+#' @examples
+#' \dontrun{
+#' res <- post_request(paramas, "Hello world!")
+#' translated <- extract_result(res)
+#' }
+#'
+#' @export
 extract_result <- function(res){
   res_list <- 
     res |>
