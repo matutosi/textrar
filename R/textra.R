@@ -36,8 +36,7 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
 #' This function retrieves an access token 
 #' from the API using the provided key and secret.
 #' 
-#' @param key The API key.
-#' @param secret The API secret.
+#' @inherit gen_params
 #'
 #' @return A character string containing the access token.
 #'
@@ -107,8 +106,7 @@ gen_params <- function(key, secret, name, api_name = "mt"){
 #' This function sends a POST request to the API 
 #' with the specified parameters and text.
 #'
-#' @param params A list of parameters to send in the request.
-#' @param text The text to send in the request.
+#' @inherit textra
 #'
 #' @return The response from the API.
 #'
@@ -136,7 +134,7 @@ post_request <- function(params, text){
 #'
 #' @param res The response object returned by the `post_request()`.
 #'
-#' @return A character vector containing the translated text.
+#' @return A character string containing the translated text.
 #'
 #' @examples
 #' \dontrun{
