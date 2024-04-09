@@ -1,37 +1,24 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
 
 # textrar
 
 The goal of textrar is to translate texts with TexTra easily.
 
-https://mt-auto-minhon-mlt.ucri.jgn-x.jp/
-
+<https://mt-auto-minhon-mlt.ucri.jgn-x.jp/>
 
 ## Installation
 
 You can install from [GitHub](https://github.com/) with:
 
-```{r, eval = FALSE}
+``` r
   # install.packages("remotes")
 remotes::install_github("matutosi/textrar")
 ```
 
 You can also install from CRAN:
 
-```{r, eval = FALSE}
+``` r
 install.packages("textrar")
 ```
 
@@ -39,7 +26,7 @@ install.packages("textrar")
 
 You can use `textra()` to translate texts with textra easily.
 
-```{r example, eval = FALSE}
+``` r
 library(textrar)
 
 key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
@@ -55,4 +42,5 @@ translated
 
 ## Citation
 
-Toshikazu Matsumura (2024) textrar. Interface to 'TexTra' from R. https://github.com/matutosi/textrar/
+Toshikazu Matsumura (2024) textrar. Interface to ‘TexTra’ from R.
+<https://github.com/matutosi/textrar/>
