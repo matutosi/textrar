@@ -42,5 +42,5 @@ translated
 
 ## Citation
 
-Toshikazu Matsumura (2024) textrar. Interface to ‘TexTra’ from R.
+Toshikazu Matsumura (2024) textrar. Interface to `'TexTra'` from R.
 <https://github.com/matutosi/textrar/>
