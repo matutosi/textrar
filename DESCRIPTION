@@ -7,7 +7,7 @@ Authors@R:
            comment = c(ORCID = "0000-0003-2306-6355"))
 Description: A wrapper for the 'TexTra' API <https://mt-auto-minhon-mlt.ucri.jgn-x.jp/>, 
     a web service for translating texts between different languages. 
-    TexTra API account is required to use the service.
+    'TexTra' API account is required to use the service.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
