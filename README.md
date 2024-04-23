@@ -3,7 +3,7 @@
 
 # textrar
 
-The goal of textrar is to translate texts with TexTra easily.
+The goal of textrar is to translate texts with `'TexTra'` easily.
 
 <https://mt-auto-minhon-mlt.ucri.jgn-x.jp/>
 

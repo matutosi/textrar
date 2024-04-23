@@ -1,3 +1,8 @@
+## Resubmission
+
+*   This is a resubmission. In this version I have:
+      * added single quotes around all instances of 'TexTra' in package title and package description.
+
 # Test environments
 
 * local
@@ -11,19 +16,11 @@
 
 # R CMD check results
 
-## On local check and rhub::check_rhub()
-
-There were 0 errors  | 0 warnings  | 0 notes
-
-## devtools::check_win_devel()
-
-There were 0 errors  | 0 warnings  | 1 notes
+* There were 0 errors  | 0 warnings  | 1 notes
 
 * checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Toshikazu Matsumura <matutosi@gmail.com>'
   New submission
-  Possibly misspelled words in DESCRIPTION:
-    TexTra (10:5)
 
 # Downstream dependencies
 
