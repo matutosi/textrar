@@ -3,7 +3,7 @@
 
 # textrar
 
-The goal of textrar is to translate texts with `'TexTra'` easily.
+The goal of textrar is to translate texts with TexTra easily.
 
 <https://mt-auto-minhon-mlt.ucri.jgn-x.jp/>
 
@@ -42,5 +42,5 @@ translated
 
 ## Citation
 
-Toshikazu Matsumura (2024) textrar. Interface to `'TexTra'` from R.
+Toshikazu Matsumura (2024) textrar. Interface to TexTra from R.
 <https://github.com/matutosi/textrar/>
