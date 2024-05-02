@@ -7,3 +7,6 @@
 ^CRAN-SUBMISSION$
 ^.github$
 ^.github\$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
