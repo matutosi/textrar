@@ -65,7 +65,12 @@
   `post_request()`・`extract_result()`・`base_url()` は警告を出す包みになり，
   実装は `api_post()`・`api_extract()`・`api_base_url()` へ移した．
   **次の版 (0.10.0 か 1.0.0) で `@export` ごと削除する**．CRAN 上の逆依存はゼロ．
-- **【判断待ち】CRAN へ 0.9.0 を出すか**．出すなら `cran-comments.md` が
-  0.8.0 の初回提出のまま (再提出の記述が残っている) なので書き直しが要る．
+- **【保留 2026-08-28】CRAN への 0.9.0 提出の準備は次回**(ユーザ指示)．
+  着手するときの手順:
+  1. `cran-comments.md` の書き直し (今は 0.8.0 の初回提出の文面．
+     「This is a resubmission」が残っている)
+  2. `devtools::check_win_devel()`
+  3. `main` へ merge するかの判断 (今は CRAN 版 0.8.0 のまま 17 コミット遅れ)
+  - 0.9.0 は**後方互換ではない** (失敗が NULL からエラーへ)．NEWS に Breaking と明記済み．
 - `develop` が `main` より先行している (未 merge)．CRAN 版の `main` をいつ揃えるか．
 - **push はまだしていない**．
