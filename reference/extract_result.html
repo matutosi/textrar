@@ -9,7 +9,7 @@ returned by the post_request() function."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">textrar</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +55,26 @@ returned by the <code><a href="post_request.html">post_request()</a></code> func
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A character string containing the translated text.</p>
+    <p>A character string containing the translated text. An error is
+raised when the API reports a failure. Note that the API answers with
+HTTP 200 even when it fails, and reports the failure in
+<code>resultset$code</code>, so the status code alone cannot be relied upon.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="deprecated">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated"></a></h2>
+
+
+<p><code>extract_result()</code> is a low level building block that was never meant to
+be part of the public interface. It is deprecated as of textrar 0.9.0 and
+will be removed in a future release. Use <code><a href="textra.html">textra()</a></code> instead. If you rely
+on it, please open an issue at
+<a href="https://github.com/matutosi/textrar/issues" class="external-link">https://github.com/matutosi/textrar/issues</a>.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="post_request.html">post_request</a></span><span class="op">(</span><span class="va">paramas</span>, <span class="st">"Hello world!"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="post_request.html">post_request</a></span><span class="op">(</span><span class="va">params</span>, <span class="st">"Hello world!"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">translated</span> <span class="op">&lt;-</span> <span class="fu">extract_result</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

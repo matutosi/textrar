@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/matutosi/textrar/blob/develop/DESCRIPTION)
 
 Matsumura T (2026). *textrar: Interface to 'TexTra' from R*. R package
-version 0.8.0.9000, <https://github.com/matutosi/textrar>.
+version 0.9.0, <https://github.com/matutosi/textrar>.
 
     @Manual{,
       title = {textrar: Interface to 'TexTra' from R},
       author = {Toshikazu Matsumura},
       year = {2026},
-      note = {R package version 0.8.0.9000},
+      note = {R package version 0.9.0},
       url = {https://github.com/matutosi/textrar},
     }

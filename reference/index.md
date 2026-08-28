@@ -13,4 +13,4 @@
 - [`post_request()`](https://matutosi.github.io/textrar/reference/post_request.md)
   : Send a POST request to the API
 - [`textra()`](https://matutosi.github.io/textrar/reference/textra.md) :
-  Translate text using Transliteration Model
+  Translate text with 'TexTra'

@@ -1,6 +1,6 @@
-# Translate text using Transliteration Model
+# Translate text with 'TexTra'
 
-This function translates text using a transliteration model.
+This function translates text with the 'TexTra' machine translation API.
 
 ## Usage
 

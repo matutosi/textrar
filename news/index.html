@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">textrar</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,20 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.0" id="textrar-090">textrar 0.9.0<a class="anchor" aria-label="anchor" href="#textrar-090"></a></h2>
+<ul><li>Fixed <code>.Rbuildignore</code> so that the <code>tools/</code> directory is no longer shipped in the source package.</li>
+<li>Enabled TLS certificate verification: <code><a href="../reference/get_token.html">get_token()</a></code> and <code><a href="../reference/post_request.html">post_request()</a></code> no longer set <code>ssl_verifypeer = FALSE</code>.</li>
+<li>The responses are now parsed with plain <code>$</code> extraction instead of the <code>`$`(_, "x")</code> pipe placeholder. The behavior is unchanged, but the package no longer needs R 4.2: <code>DESCRIPTION</code> declares R &gt;= 3.6, which is what ‘httr’ asks for. The unused <code>LazyData</code> field was removed.</li>
+<li>
+<code><a href="../reference/gen_params.html">gen_params()</a></code> and <code><a href="../reference/get_token.html">get_token()</a></code> now read the credentials from the environment variables <code>TEXTRA_API_KEY</code>, <code>TEXTRA_API_SECRET</code> and <code>TEXTRA_NAME</code> by default, so that keys need not be written in scripts. Passing them explicitly still works. An unset variable now raises an informative error instead of sending an empty credential.</li>
+<li>
+<strong>Breaking</strong>: failures now raise an error instead of returning <code>NULL</code>. <code><a href="../reference/get_token.html">get_token()</a></code> stops when ‘TexTra’ rejects the credentials, and <code><a href="../reference/extract_result.html">extract_result()</a></code> stops when the API reports a failure. The API answers with HTTP 200 even when it fails and reports the failure in <code>resultset$code</code>, so the status code alone was never enough to detect it. Code that tested the result with <code><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null()</a></code> needs to use <code><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch()</a></code>.</li>
+<li>
+<code><a href="../reference/post_request.html">post_request()</a></code>, <code><a href="../reference/extract_result.html">extract_result()</a></code> and <code><a href="../reference/base_url.html">base_url()</a></code> are deprecated. They are low level building blocks that were never meant to be part of the public interface. They still work, but warn, and will be removed in a future release. Use <code><a href="../reference/textra.html">textra()</a></code> instead; if you rely on them to reach an endpoint that <code><a href="../reference/textra.html">textra()</a></code> does not cover, please open an issue at <a href="https://github.com/matutosi/textrar/issues" class="external-link uri">https://github.com/matutosi/textrar/issues</a>.</li>
+<li>Added a <code>testthat</code> (edition 3) suite. Most tests run without touching the network; the ones that call the API are skipped unless <code>TEXTRA_TEST_LIVE</code> is set, so that they do not consume the API quota on every check.</li>
+<li>Documentation fixes: <code><a href="../reference/textra.html">textra()</a></code> is a translation model, not a transliteration one; <code>name</code> in <code><a href="../reference/gen_params.html">gen_params()</a></code> is the login ID; broken examples in <code><a href="../reference/post_request.html">post_request()</a></code> and <code><a href="../reference/extract_result.html">extract_result()</a></code> were corrected.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0" id="textrar-080">textrar 0.8.0<a class="anchor" aria-label="anchor" href="#textrar-080"></a></h2><p class="text-muted">CRAN release: 2024-04-23</p>
 <ul><li>First release</li>
 <li>
@@ -40,7 +54,8 @@
 <li>
 <code><a href="../reference/gen_params.html">gen_params()</a></code>: function to get token parameters</li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

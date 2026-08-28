@@ -23,10 +23,22 @@ post_request(params, text)
 
 The response from the API.
 
+## Deprecated
+
+`post_request()` is a low level building block that was never meant to
+be part of the public interface. It is deprecated as of textrar 0.9.0
+and will be removed in a future release. Use
+[`textra()`](https://matutosi.github.io/textrar/reference/textra.md)
+instead. If you rely on it to reach an endpoint that
+[`textra()`](https://matutosi.github.io/textrar/reference/textra.md)
+does not cover, please open an issue at
+<https://github.com/matutosi/textrar/issues> so that a supported way of
+doing so can be provided.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-post_request(params = , text = "Hello, world!")
+post_request(params, text = "Hello, world!")
 } # }
 ```

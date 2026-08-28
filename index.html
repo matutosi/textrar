@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">textrar</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,18 +66,25 @@
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>You can use <code><a href="reference/textra.html">textra()</a></code> to translate texts with textra easily.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>Store your credentials in the user <code>.Renviron</code> file, which <code>usethis::edit_r_environ()</code> opens, and restart R. Keeping them out of your scripts keeps them out of version control.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>TEXTRA_API_KEY<span class="ot">=</span>your_api_key</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>TEXTRA_API_SECRET<span class="ot">=</span>your_api_secret</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>TEXTRA_NAME<span class="ot">=</span>your_login_id</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/matutosi/textrar" class="external-link">textrar</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">key</span> <span class="op">&lt;-</span> <span class="st">"abcdefghijklmnopqrstuvw01234567890abcdef1"</span> <span class="co"># API key</span></span>
-<span><span class="va">secret</span> <span class="op">&lt;-</span> <span class="st">"xyzabcdefghijklmnopqrstuvw012345"</span>       <span class="co"># API secret</span></span>
-<span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"login_ID"</span>                                 <span class="co"># login_ID</span></span>
-<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gen_params.html">gen_params</a></span><span class="op">(</span>key <span class="op">=</span> <span class="va">key</span>, secret <span class="op">=</span> <span class="va">secret</span>, name <span class="op">=</span> <span class="va">name</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gen_params.html">gen_params</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"Hello world"</span></span>
 <span><span class="va">translated</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/textra.html">textra</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">params</span>, model <span class="op">=</span> <span class="st">"transLM"</span>, from <span class="op">=</span> <span class="st">"en"</span>, to <span class="op">=</span> <span class="st">"it"</span><span class="op">)</span></span>
 <span><span class="va">translated</span></span>
 <span> <span class="co">## [1] "Ciao mondo"</span></span></code></pre></div>
+<p>You can also pass the credentials explicitly, for example when you keep them somewhere else.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">key</span> <span class="op">&lt;-</span> <span class="st">"abcdefghijklmnopqrstuvw01234567890abcdef1"</span> <span class="co"># API key</span></span>
+<span><span class="va">secret</span> <span class="op">&lt;-</span> <span class="st">"xyzabcdefghijklmnopqrstuvw012345"</span>       <span class="co"># API secret</span></span>
+<span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"login_ID"</span>                                 <span class="co"># login_ID</span></span>
+<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gen_params.html">gen_params</a></span><span class="op">(</span>key <span class="op">=</span> <span class="va">key</span>, secret <span class="op">=</span> <span class="va">secret</span>, name <span class="op">=</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
