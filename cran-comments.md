@@ -17,8 +17,9 @@ reverse dependencies on CRAN, so no other packages are affected.
 # Test environments
 
 * local
-    * Windows 11, R 4.4.x
-* devtools::check_win_devel()
+    * Windows 11, R 4.6.1
+* win-builder (R-devel), via devtools::check_win_devel(): OK
+* R-hub v2 (linux, macos, windows; R-devel), via rhub::rhub_check(): OK
 
 # R CMD check results
 
