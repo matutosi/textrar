@@ -21,6 +21,12 @@
   with HTTP 200 even when it fails and reports the failure in
   `resultset$code`, so the status code alone was never enough to detect it.
   Code that tested the result with `is.null()` needs to use `tryCatch()`.
+* `post_request()`, `extract_result()` and `base_url()` are deprecated. They
+  are low level building blocks that were never meant to be part of the
+  public interface. They still work, but warn, and will be removed in a
+  future release. Use `textra()` instead; if you rely on them to reach an
+  endpoint that `textra()` does not cover, please open an issue at
+  <https://github.com/matutosi/textrar/issues>.
 * Added a `testthat` (edition 3) suite. Most tests run without touching the
   network; the ones that call the API are skipped unless `TEXTRA_TEST_LIVE`
   is set, so that they do not consume the API quota on every check.

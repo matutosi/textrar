@@ -26,8 +26,8 @@
 textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
   api_param <- paste0(model, "_", from, "_", to)
   params <- c(params, list(api_param = api_param))
-  res <- post_request(params, text)
-  translated <- extract_result(res)
+  res <- api_post(params, text)
+  translated <- api_extract(res)
   return(translated)
 }
 
@@ -55,7 +55,7 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
 #' @export
 get_token <- function(key = textra_env("TEXTRA_API_KEY"),
                       secret = textra_env("TEXTRA_API_SECRET")){
-  token_url <- paste0(base_url(), "/oauth2/token.php")
+  token_url <- paste0(api_base_url(), "/oauth2/token.php")
   token_req <- httr::POST(
     url = token_url,
     body = list(
@@ -145,6 +145,14 @@ gen_params <- function(key = textra_env("TEXTRA_API_KEY"),
 #'
 #' @return The response from the API.
 #'
+#' @section Deprecated:
+#' `post_request()` is a low level building block that was never meant to be
+#' part of the public interface. It is deprecated as of textrar 0.9.0 and
+#' will be removed in a future release. Use [textra()] instead. If you rely
+#' on it to reach an endpoint that [textra()] does not cover, please open an
+#' issue at <https://github.com/matutosi/textrar/issues> so that a supported
+#' way of doing so can be provided.
+#'
 #' @examples
 #' \dontrun{
 #' post_request(params, text = "Hello, world!")
@@ -152,10 +160,24 @@ gen_params <- function(key = textra_env("TEXTRA_API_KEY"),
 #'
 #' @export
 post_request <- function(params, text){
+  deprecate_low_level("post_request()")
+  return(api_post(params, text))
+}
+
+#' Send a POST request to the API
+#'
+#' Internal workhorse behind [post_request()].
+#'
+#' @inheritParams textra
+#'
+#' @return The response from the API.
+#'
+#' @noRd
+api_post <- function(params, text){
   body <- c(params, list(text = text))
-  res <- 
+  res <-
     httr::POST(
-      url = paste0(base_url(), "/api/?"),
+      url = paste0(api_base_url(), "/api/?"),
       body = body,
       encode = "form")
   return(res)
@@ -173,6 +195,13 @@ post_request <- function(params, text){
 #'   HTTP 200 even when it fails, and reports the failure in
 #'   `resultset$code`, so the status code alone cannot be relied upon.
 #'
+#' @section Deprecated:
+#' `extract_result()` is a low level building block that was never meant to
+#' be part of the public interface. It is deprecated as of textrar 0.9.0 and
+#' will be removed in a future release. Use [textra()] instead. If you rely
+#' on it, please open an issue at
+#' <https://github.com/matutosi/textrar/issues>.
+#'
 #' @examples
 #' \dontrun{
 #' res <- post_request(params, "Hello world!")
@@ -181,6 +210,20 @@ post_request <- function(params, text){
 #'
 #' @export
 extract_result <- function(res){
+  deprecate_low_level("extract_result()")
+  return(api_extract(res))
+}
+
+#' Extract Translated Text from Response
+#'
+#' Internal workhorse behind [extract_result()].
+#'
+#' @param res The response object returned by [api_post()].
+#'
+#' @return A character string containing the translated text.
+#'
+#' @noRd
+api_extract <- function(res){
   res_list <- jsonlite::fromJSON(
     httr::content(res, "text", encoding = "UTF-8"))
   check_api_code(res_list, httr::status_code(res))
@@ -195,12 +238,53 @@ extract_result <- function(res){
 #'
 #' @return A string containing the base URL.
 #'
+#' @section Deprecated:
+#' `base_url()` is a low level building block that was never meant to be part
+#' of the public interface. It is deprecated as of textrar 0.9.0 and will be
+#' removed in a future release. If you rely on it, please open an issue at
+#' <https://github.com/matutosi/textrar/issues>.
+#'
 #' @examples
+#' \dontrun{
 #' base_url()
+#' }
 #' 
 #' @export
 base_url <- function(){
+  deprecate_low_level("base_url()")
+  return(api_base_url())
+}
+
+#' Return the base URL for the API
+#'
+#' Internal workhorse behind [base_url()].
+#'
+#' @return A string containing the base URL.
+#'
+#' @noRd
+api_base_url <- function(){
   return("https://mt-auto-minhon-mlt.ucri.jgn-x.jp")
+}
+
+#' Warn that a low level function is deprecated
+#'
+#' Internal helper, so that the three deprecated functions say the same
+#' thing.
+#'
+#' @param what The name of the deprecated function.
+#'
+#' @return Nothing, called for its warning.
+#'
+#' @noRd
+deprecate_low_level <- function(what){
+  .Deprecated(msg = paste0(
+    what, " is deprecated as of textrar 0.9.0 and will be removed in a ",
+    "future release.
+",
+    "  Use textra() instead. If you rely on ", what, ", please open an ",
+    "issue at
+  https://github.com/matutosi/textrar/issues"))
+  return(invisible(NULL))
 }
 
 #' Read a credential from an environment variable

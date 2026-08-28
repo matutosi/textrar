@@ -1,11 +1,11 @@
 test_that("textra() builds api_param from model, from and to", {
   captured <- NULL
   local_mocked_bindings(
-    post_request = function(params, text) {
+    api_post = function(params, text) {
       captured <<- list(params = params, text = text)
       "a-response"
     },
-    extract_result = function(res) "translated"
+    api_extract = function(res) "translated"
   )
   out <- textra("Hello world", list(key = "k"),
                 model = "transLM", from = "en", to = "ja")
@@ -17,11 +17,11 @@ test_that("textra() builds api_param from model, from and to", {
 test_that("textra() keeps the parameters it was given", {
   captured <- NULL
   local_mocked_bindings(
-    post_request = function(params, text) {
+    api_post = function(params, text) {
       captured <<- params
       "a-response"
     },
-    extract_result = function(res) "translated"
+    api_extract = function(res) "translated"
   )
   textra("text", list(access_token = "t", key = "k"))
   expect_equal(captured$access_token, "t")
@@ -31,11 +31,11 @@ test_that("textra() keeps the parameters it was given", {
 test_that("textra() defaults to transLM from English to Japanese", {
   captured <- NULL
   local_mocked_bindings(
-    post_request = function(params, text) {
+    api_post = function(params, text) {
       captured <<- params
       "a-response"
     },
-    extract_result = function(res) "translated"
+    api_extract = function(res) "translated"
   )
   textra("text", list())
   expect_equal(captured$api_param, "transLM_en_ja")

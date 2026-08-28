@@ -12,7 +12,17 @@ A string containing the base URL.
 \description{
 Return the base URL for the API
 }
+\section{Deprecated}{
+
+\code{base_url()} is a low level building block that was never meant to be part
+of the public interface. It is deprecated as of textrar 0.9.0 and will be
+removed in a future release. If you rely on it, please open an issue at
+\url{https://github.com/matutosi/textrar/issues}.
+}
+
 \examples{
+\dontrun{
 base_url()
+}
 
 }

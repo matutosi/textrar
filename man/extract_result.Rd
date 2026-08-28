@@ -19,6 +19,15 @@ HTTP 200 even when it fails, and reports the failure in
 This function extracts the translated text from the response.
 returned by the \code{post_request()} function.
 }
+\section{Deprecated}{
+
+\code{extract_result()} is a low level building block that was never meant to
+be part of the public interface. It is deprecated as of textrar 0.9.0 and
+will be removed in a future release. Use \code{\link[=textra]{textra()}} instead. If you rely
+on it, please open an issue at
+\url{https://github.com/matutosi/textrar/issues}.
+}
+
 \examples{
 \dontrun{
 res <- post_request(params, "Hello world!")

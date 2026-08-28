@@ -18,6 +18,16 @@ The response from the API.
 This function sends a POST request to the API
 with the specified parameters and text.
 }
+\section{Deprecated}{
+
+\code{post_request()} is a low level building block that was never meant to be
+part of the public interface. It is deprecated as of textrar 0.9.0 and
+will be removed in a future release. Use \code{\link[=textra]{textra()}} instead. If you rely
+on it to reach an endpoint that \code{\link[=textra]{textra()}} does not cover, please open an
+issue at \url{https://github.com/matutosi/textrar/issues} so that a supported
+way of doing so can be provided.
+}
+
 \examples{
 \dontrun{
 post_request(params, text = "Hello, world!")
