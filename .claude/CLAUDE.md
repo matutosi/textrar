@@ -26,6 +26,12 @@
 
 ### 現在の状態
 
+- 2026-08-28 (このセッション，MATUTOSI_DP)
+  **textrar 0.9.0 を CRAN へ提出した (ユーザが `devtools::submit_cran()` を実行し，
+  ウェブ確認まで完了)**．`CRAN-SUBMISSION` が自動更新された
+  (Date 2026-08-28 19:37:25 UTC，SHA `892160d`)．CRAN 側の審査結果 (受理 or
+  指摘) の連絡待ち．受理されたら `main` は既に揃っているのでそのままでよい．
+
 - 2026-08-28 20:23 (MATUTOSI_DP)
   **win-builder・rhub とも OK/success で完了した**．win-builder: Status OK
   (R-devel)．rhub: linux・macos・windows (R-devel) すべて success
@@ -81,10 +87,8 @@
   `post_request()`・`extract_result()`・`base_url()` は警告を出す包みになり，
   実装は `api_post()`・`api_extract()`・`api_base_url()` へ移した．
   **次の版 (0.10.0 か 1.0.0) で `@export` ごと削除する**．CRAN 上の逆依存はゼロ．
-- **【要対応 2026-08-28】CRAN 0.9.0 の最終提出はユーザが行う**．
-  win-builder (OK)・rhub (linux/macos/windows すべて success) は完了済み．
-  **対話型の R コンソール (RStudio 等) で `devtools::release()` を実行する**
-  (このセッションは非対話のため，確認プロンプトに答えられず実行できない)．
+- **【完了 2026-08-28】CRAN 0.9.0 の提出**．ユーザが `devtools::submit_cran()` を
+  実行し，ウェブフォームでの確認まで完了した．**CRAN 側の審査結果 (受理/指摘) 待ち**．
   - 0.9.0 は**後方互換ではない** (失敗が NULL からエラーへ)．NEWS に Breaking と明記済み．
 - **【完了 2026-08-28】`develop` を `main` へ fast-forward merge・push 済み**．
   main・develop とも `8ebfe14`．CRAN 版 (0.8.0) との差は今回の 0.9.0 提出で解消予定．
