@@ -26,6 +26,12 @@
 
 ### 現在の状態
 
+- 2026-08-29 05:09 (CRAN からのメール受信)
+  **CRAN の pretest 結果が OK だった**．`[CRAN-pretest-publish]` メールで
+  flavor r-devel-linux-x86_64-debian-gcc・r-devel-windows-x86_64 とも
+  `Check: *, Result: OK`．**CRAN へ向けて処理中** (自動 publish 待ち)．
+  次に来るのは受理完了 (publish) の通知，またはまれに追加指摘のメール．
+
 - 2026-08-28 (このセッション，MATUTOSI_DP)
   **textrar 0.9.0 を CRAN へ提出した (ユーザが `devtools::submit_cran()` を実行し，
   ウェブ確認まで完了)**．`CRAN-SUBMISSION` が自動更新された
