@@ -2,7 +2,7 @@
 % Please edit documentation in R/textra.R
 \name{textra}
 \alias{textra}
-\title{Translate text using Transliteration Model}
+\title{Translate text with 'TexTra'}
 \usage{
 textra(text, params, model = "transLM", from = "en", to = "ja")
 }
@@ -21,7 +21,7 @@ textra(text, params, model = "transLM", from = "en", to = "ja")
 The translated text.
 }
 \description{
-This function translates text using a transliteration model.
+This function translates text with the 'TexTra' machine translation API.
 }
 \examples{
 \dontrun{

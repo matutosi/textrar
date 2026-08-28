@@ -20,7 +20,7 @@ with the specified parameters and text.
 }
 \examples{
 \dontrun{
-post_request(params = , text = "Hello, world!")
+post_request(params, text = "Hello, world!")
 }
 
 }

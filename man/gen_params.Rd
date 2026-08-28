@@ -11,7 +11,7 @@ gen_params(key, secret, name, api_name = "mt")
 
 \item{secret}{The API secret.}
 
-\item{name}{The name of the API.}
+\item{name}{The login ID of the 'TexTra' account.}
 
 \item{api_name}{The name of the API to use. Defaults to "mt".}
 }

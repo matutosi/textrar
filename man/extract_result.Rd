@@ -18,7 +18,7 @@ returned by the \code{post_request()} function.
 }
 \examples{
 \dontrun{
-res <- post_request(paramas, "Hello world!")
+res <- post_request(params, "Hello world!")
 translated <- extract_result(res)
 }
 

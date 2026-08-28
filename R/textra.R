@@ -1,6 +1,6 @@
-#' Translate text using Transliteration Model
+#' Translate text with 'TexTra'
 #'
-#' This function translates text using a transliteration model.
+#' This function translates text with the 'TexTra' machine translation API.
 #'
 #' @param text The text to be translated.
 #' @param params A list of parameters to be passed to the API.
@@ -36,7 +36,7 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
 #' This function retrieves an access token 
 #' from the API using the provided key and secret.
 #' 
-#' @inherit gen_params
+#' @inheritParams gen_params
 #'
 #' @return A character string containing the access token.
 #'
@@ -74,7 +74,7 @@ get_token <- function(key, secret){
 #'
 #' @param key The API key.
 #' @param secret The API secret.
-#' @param name The name of the API.
+#' @param name The login ID of the 'TexTra' account.
 #' @param api_name The name of the API to use. Defaults to "mt".
 #'
 #' @return A list of parameters.
@@ -111,7 +111,7 @@ gen_params <- function(key, secret, name, api_name = "mt"){
 #'
 #' @examples
 #' \dontrun{
-#' post_request(params = , text = "Hello, world!")
+#' post_request(params, text = "Hello, world!")
 #' }
 #'
 #' @export
@@ -136,7 +136,7 @@ post_request <- function(params, text){
 #'
 #' @examples
 #' \dontrun{
-#' res <- post_request(paramas, "Hello world!")
+#' res <- post_request(params, "Hello world!")
 #' translated <- extract_result(res)
 #' }
 #'
