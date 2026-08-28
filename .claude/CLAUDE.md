@@ -10,3 +10,46 @@
   `devtools::check()` は既定で一時ディレクトリに作るためプロジェクト直下には残らない．
   プロジェクト直下に残るのは `R CMD build` を直接実行したときが多い．
   どちらの経路でできたものでも，見つけたら消す．
+
+## 鍵の扱い
+
+- **鍵はコードに書かない．`~/.Renviron` (Windows の R では `C:\Users\<user>\Documents\.Renviron`)
+  に置き，`Sys.getenv()` で読む**．変数名は `TEXTRA_API_KEY`・`TEXTRA_API_SECRET`・`TEXTRA_NAME`．
+  `gen_params()`・`get_token()` はこれらを既定値にしてある．
+- **プロジェクト直下に `.Renviron` を置かない**．`D:\Dropbox\todo\` は3台へ同期されるため，
+  `.gitignore` に足しても Dropbox には乗る．ホーム直下は同期されないのでそちらが正しい．
+- **同期されないので，鍵は3台それぞれで設定する**．運搬に Dropbox を使わない．
+- `tools/` には旧鍵をベタ書きした原型スクリプトが残っている (`.gitignore` 済み)．
+  **ここへ新しい鍵を書き戻さない**．
+
+## 進捗状況
+
+### 現在の状態
+
+- 2026-08-28 16:36 (MATUTOSI_DP)
+  **鍵の漏洩を塞ぎ，環境変数から読む形へ移した** (`develop` に3コミット)．
+  `R CMD check` は 0 errors / 0 warnings / 0 notes．実 API で往復も確認済み．
+  新しい鍵はユーザが再発行して `.Renviron` へ設定済み．
+
+### 経緯: CRAN で鍵が公開されていた件 (2026-08-28 に発覚・対処)
+
+- `.Rbuildignore` の `^\tools$` は，正規表現として `\t` がタブの escape になるため
+  **何にもマッチせず**，鍵をベタ書きした `tools/` がソースパッケージに同梱されていた．
+- **CRAN の `textrar_0.8.0.tar.gz` と GitHub の CRAN ミラー `cran/textrar` で実際に読める状態**
+  だった (2024-04-23 の公開以来)．CRAN バイナリ・自分の GitHub リポジトリ・git 履歴は無事．
+- **旧鍵は失効・再発行済み**．ミラーに残るため，取り消しではなく再発行が対処．
+- 併せて `ssl_verifypeer = FALSE` (証明書検証の無効化) も削除した．
+
+### 次にやること
+
+- **【判断待ち】testthat の導入**．現状のテストは `tests/spelling.R` だけ．
+  通信しないテスト (`api_param` の組み立て・`extract_result()` の JSON パース・
+  `textra_env()` の異常系) と，`skip_on_cran()` 付きの実 API テストの2層を想定．
+- **【判断待ち】R3: エラーを `stop()` にする**．今は HTTP ステータスも `resultset$code` も
+  見ておらず，認証失敗などが**静かに `NULL`** になる．
+- **【判断待ち】R2: `` `$`(_, "x") `` の連鎖を普通の `$` 連鎖に戻す**．
+  R 4.2 縛りが外れ，`Depends` を下げられる．
+- **【判断待ち】R5: `post_request()`・`extract_result()`・`base_url()` を export から外す**．
+  **破壊的変更**なので，非推奨の経過を置くか 0.9.0 で切るかの判断が要る．
+- `develop` が `main` より先行している (未 merge)．CRAN 版の `main` をいつ揃えるか．
+- **push はまだしていない**．
