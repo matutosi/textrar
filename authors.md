@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/matutosi/textrar/blob/develop/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/matutosi/textrar/blob/main/DESCRIPTION)
 
 Matsumura T (2026). *textrar: Interface to 'TexTra' from R*. R package
 version 0.9.0, <https://github.com/matutosi/textrar>.
