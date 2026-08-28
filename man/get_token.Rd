@@ -17,7 +17,8 @@ get_token(
 \code{TEXTRA_API_SECRET}.}
 }
 \value{
-A character string containing the access token.
+A character string containing the access token. An error is
+raised when 'TexTra' rejects the credentials.
 }
 \description{
 This function retrieves an access token

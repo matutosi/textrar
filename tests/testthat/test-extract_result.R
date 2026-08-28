@@ -10,15 +10,33 @@ test_that("extract_result() handles plain ASCII text", {
   expect_equal(extract_result(res), "Ciao mondo")
 })
 
-# The current implementation returns NULL when the answer carries no text.
-# These tests pin that behaviour down, so that a later change to raise an
-# error instead becomes a deliberate and visible one.
-test_that("extract_result() returns NULL when the answer carries no result", {
-  res <- fake_response('{"resultset":{"code":500,"message":"an error"}}')
-  expect_null(extract_result(res))
+# The API answers with HTTP 200 even when it fails, and reports the failure
+# in resultset$code, so the status code alone cannot be relied upon.
+# Observed on 2026-08-28: a wrong token gives code 510 with an empty message,
+# and an unknown model gives code 530 with a message.
+test_that("a non-zero code raises an error naming the code and the message", {
+  res <- fake_response('{"resultset":{"code":530,"message":"an error"}}')
+  expect_error(extract_result(res), "530")
+  expect_error(extract_result(res), "an error")
 })
 
-test_that("extract_result() returns NULL when there is no resultset at all", {
-  res <- fake_response('{"error":"invalid_client"}')
-  expect_null(extract_result(res))
+test_that("a non-zero code with no message still names the code", {
+  res <- fake_response('{"resultset":{"code":510,"message":""}}')
+  expect_error(extract_result(res), "510")
+  expect_error(extract_result(res), "no message")
+})
+
+test_that("an OAuth style error is reported", {
+  res <- fake_response('{"error":"invalid_client"}', status = 400L)
+  expect_error(extract_result(res), "invalid_client")
+})
+
+test_that("a success code with no text raises an error", {
+  res <- fake_response('{"resultset":{"code":0,"message":""}}')
+  expect_error(extract_result(res), "no translated text")
+})
+
+test_that("an HTTP error with no resultset is reported", {
+  res <- fake_response('{}', status = 500L)
+  expect_error(extract_result(res), "500")
 })

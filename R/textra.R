@@ -38,7 +38,8 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
 #' 
 #' @inheritParams gen_params
 #'
-#' @return A character string containing the access token.
+#' @return A character string containing the access token. An error is
+#'   raised when 'TexTra' rejects the credentials.
 #'
 #' @examples
 #' \dontrun{
@@ -66,7 +67,17 @@ get_token <- function(key = textra_env("TEXTRA_API_KEY"),
   )
   parsed <- jsonlite::fromJSON(
     httr::content(token_req, "text", encoding = "UTF-8"))
+  if(!is.null(parsed$error)){
+    stop("'TexTra' rejected the credentials: ", parsed$error,
+         if(is.null(parsed$error_description)) ""
+         else paste0(" (", parsed$error_description, ")"),
+         call. = FALSE)
+  }
   token <- parsed$access_token
+  if(is.null(token) || !nzchar(token)){
+    stop("'TexTra' returned no access token (HTTP ",
+         httr::status_code(token_req), ").", call. = FALSE)
+  }
   return(token)
 }
 
@@ -157,7 +168,10 @@ post_request <- function(params, text){
 #'
 #' @param res The response object returned by the `post_request()`.
 #'
-#' @return A character string containing the translated text.
+#' @return A character string containing the translated text. An error is
+#'   raised when the API reports a failure. Note that the API answers with
+#'   HTTP 200 even when it fails, and reports the failure in
+#'   `resultset$code`, so the status code alone cannot be relied upon.
 #'
 #' @examples
 #' \dontrun{
@@ -169,7 +183,11 @@ post_request <- function(params, text){
 extract_result <- function(res){
   res_list <- jsonlite::fromJSON(
     httr::content(res, "text", encoding = "UTF-8"))
+  check_api_code(res_list, httr::status_code(res))
   translated <- res_list$resultset$result$text
+  if(is.null(translated)){
+    stop("'TexTra' returned no translated text.", call. = FALSE)
+  }
   return(translated)
 }
 
@@ -207,4 +225,41 @@ textra_env <- function(var){
          call. = FALSE)
   }
   return(value)
+}
+
+#' Stop when the API reports a failure
+#'
+#' Internal helper. The API answers with HTTP 200 even when it fails, and
+#' reports the failure in `resultset$code` instead, so the status code alone
+#' is not enough to tell success from failure.
+#'
+#' @param res_list The parsed body of the answer.
+#' @param status The HTTP status code of the answer.
+#'
+#' @return `res_list`, invisibly.
+#'
+#' @noRd
+check_api_code <- function(res_list, status = 200L){
+  if(!is.null(res_list$error)){
+    stop("'TexTra' returned an error: ", res_list$error,
+         if(is.null(res_list$error_description)) ""
+         else paste0(" (", res_list$error_description, ")"),
+         call. = FALSE)
+  }
+  code <- res_list$resultset$code
+  if(is.null(code)){
+    if(status >= 400L){
+      stop("'TexTra' answered with HTTP ", status, ".", call. = FALSE)
+    }
+    return(invisible(res_list))
+  }
+  if(!identical(as.integer(code), 0L)){
+    api_message <- res_list$resultset$message
+    stop("'TexTra' API error ", code,
+         if(is.null(api_message) || !nzchar(api_message))
+           " (the API sent no message)."
+         else paste0(": ", api_message),
+         call. = FALSE)
+  }
+  return(invisible(res_list))
 }
