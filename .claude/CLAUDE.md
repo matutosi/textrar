@@ -26,6 +26,15 @@
 
 ### 現在の状態
 
+- 2026-08-28 19:05 (MATUTOSI_DP)
+  **CRAN 0.9.0 提出準備を実施した**．`cran-comments.md` を書き直し，roxygen の
+  リンク切れ (`api_post()` が `@noRd` で未解決) を修正．`R CMD check` は 0/0/0，
+  `devtools::test()` は 46 passed．`devtools::check_win_devel()` を提出済み
+  (結果は matutosi@gmail.com へ)．**`develop` (23コミット) を `main` へ
+  fast-forward merge して push 済み** (main・develop とも `8ebfe14`)．
+  rhub v2 のワークフロー (`rhub.yaml`) を追加し，`rhub_check()` を起動した
+  (進捗は https://github.com/matutosi/textrar/actions)．
+
 - 2026-08-28 17:21 (MATUTOSI_DP)
   **R2・R3・R5 を実施し，版を 0.9.0 にした**．応答の取り出しを普通の `$` に戻して
   `Depends` を R (>= 3.6) へ下げ，API の失敗を `stop()` にし，低水準の3関数を非推奨にした．
@@ -65,12 +74,12 @@
   `post_request()`・`extract_result()`・`base_url()` は警告を出す包みになり，
   実装は `api_post()`・`api_extract()`・`api_base_url()` へ移した．
   **次の版 (0.10.0 か 1.0.0) で `@export` ごと削除する**．CRAN 上の逆依存はゼロ．
-- **【保留 2026-08-28】CRAN への 0.9.0 提出の準備は次回**(ユーザ指示)．
-  着手するときの手順:
-  1. `cran-comments.md` の書き直し (今は 0.8.0 の初回提出の文面．
-     「This is a resubmission」が残っている)
-  2. `devtools::check_win_devel()`
-  3. `main` へ merge するかの判断 (今は CRAN 版 0.8.0 のまま 17 コミット遅れ)
+- **【進行中 2026-08-28】CRAN 0.9.0 提出準備**．残っているのは結果待ちと最終提出のみ:
+  1. win-builder のメール結果待ち (提出は 08-28 19:0x 頃，15-30分後着)
+  2. rhub (linux/macos/windows) の GitHub Actions 結果待ち
+     (https://github.com/matutosi/textrar/actions)
+  3. 両方 OK なら CRAN へ提出 (`devtools::release()` か
+     https://cran.r-project.org/submit.html ヘウェブ提出)
   - 0.9.0 は**後方互換ではない** (失敗が NULL からエラーへ)．NEWS に Breaking と明記済み．
-- `develop` が `main` より先行している (未 merge)．CRAN 版の `main` をいつ揃えるか．
-- **push はまだしていない**．
+- **【完了 2026-08-28】`develop` を `main` へ fast-forward merge・push 済み**．
+  main・develop とも `8ebfe14`．CRAN 版 (0.8.0) との差は今回の 0.9.0 提出で解消予定．
