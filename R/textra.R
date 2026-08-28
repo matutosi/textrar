@@ -57,8 +57,7 @@ get_token <- function(key, secret){
       client_secret = secret,
       grant_type = "client_credentials"
     ),
-    encode = "form",
-    config = httr::config(ssl_verifypeer = FALSE)
+    encode = "form"
   )
   token <- 
     token_req |>
@@ -122,8 +121,7 @@ post_request <- function(params, text){
     httr::POST(
       url = paste0(base_url(), "/api/?"),
       body = body,
-      encode = "form",
-      config = httr::config(ssl_verifypeer = FALSE))
+      encode = "form")
   return(res)
 }
 

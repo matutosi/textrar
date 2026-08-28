@@ -2,12 +2,11 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
-^\tools$
+^tools$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
-^.github$
-^.github\$
+^\.github$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^\.github$
+^\.claude$
