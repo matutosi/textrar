@@ -26,18 +26,33 @@ install.packages("textrar")
 
 You can use `textra()` to translate texts with textra easily.
 
+Store your credentials in the user `.Renviron` file, which
+`usethis::edit_r_environ()` opens, and restart R. Keeping them out of
+your scripts keeps them out of version control.
+
+    TEXTRA_API_KEY=your_api_key
+    TEXTRA_API_SECRET=your_api_secret
+    TEXTRA_NAME=your_login_id
+
 ``` r
 library(textrar)
 
-key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
-secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
-name <- "login_ID"                                 # login_ID
-params <- gen_params(key = key, secret = secret, name = name)
+params <- gen_params()
 
 text <- "Hello world"
 translated <- textra(text, params, model = "transLM", from = "en", to = "it")
 translated
  ## [1] "Ciao mondo"
+```
+
+You can also pass the credentials explicitly, for example when you keep
+them somewhere else.
+
+``` r
+key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
+secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
+name <- "login_ID"                                 # login_ID
+params <- gen_params(key = key, secret = secret, name = name)
 ```
 
 ## Citation

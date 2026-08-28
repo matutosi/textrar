@@ -4,12 +4,17 @@
 \alias{get_token}
 \title{Get Access Token}
 \usage{
-get_token(key, secret)
+get_token(
+  key = textra_env("TEXTRA_API_KEY"),
+  secret = textra_env("TEXTRA_API_SECRET")
+)
 }
 \arguments{
-\item{key}{The API key.}
+\item{key}{The API key. Defaults to the environment variable
+\code{TEXTRA_API_KEY}.}
 
-\item{secret}{The API secret.}
+\item{secret}{The API secret. Defaults to the environment variable
+\code{TEXTRA_API_SECRET}.}
 }
 \value{
 A character string containing the access token.
@@ -20,6 +25,10 @@ from the API using the provided key and secret.
 }
 \examples{
 \dontrun{
+# Using the credentials stored in .Renviron (recommended).
+token <- get_token()
+
+# Or passing them explicitly.
 key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
 secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
 token <- get_token(key = key, secret = secret)

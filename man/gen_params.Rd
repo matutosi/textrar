@@ -4,14 +4,22 @@
 \alias{gen_params}
 \title{Generate parameters for API call}
 \usage{
-gen_params(key, secret, name, api_name = "mt")
+gen_params(
+  key = textra_env("TEXTRA_API_KEY"),
+  secret = textra_env("TEXTRA_API_SECRET"),
+  name = textra_env("TEXTRA_NAME"),
+  api_name = "mt"
+)
 }
 \arguments{
-\item{key}{The API key.}
+\item{key}{The API key. Defaults to the environment variable
+\code{TEXTRA_API_KEY}.}
 
-\item{secret}{The API secret.}
+\item{secret}{The API secret. Defaults to the environment variable
+\code{TEXTRA_API_SECRET}.}
 
-\item{name}{The login ID of the 'TexTra' account.}
+\item{name}{The login ID of the 'TexTra' account. Defaults to the
+environment variable \code{TEXTRA_NAME}.}
 
 \item{api_name}{The name of the API to use. Defaults to "mt".}
 }
@@ -22,8 +30,23 @@ A list of parameters.
 This function generates a list of parameters
 that can be used to make an API call.
 }
+\details{
+Storing the credentials in the environment rather than in your scripts
+keeps them out of version control and out of shared files. Add the
+following lines to your user \code{.Renviron} file, which
+\code{usethis::edit_r_environ()} opens, and restart R.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{TEXTRA_API_KEY=your_api_key
+TEXTRA_API_SECRET=your_api_secret
+TEXTRA_NAME=your_login_id
+}\if{html}{\out{</div>}}
+}
 \examples{
 \dontrun{
+# Using the credentials stored in .Renviron (recommended).
+params <- gen_params()
+
+# Or passing them explicitly.
 key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
 secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
 name <- "login_ID"                                 # login_ID

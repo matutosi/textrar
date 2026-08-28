@@ -8,6 +8,11 @@
   longer set `ssl_verifypeer = FALSE`.
 * `DESCRIPTION` now declares the R version the code actually needs
   (R >= 4.2.0), and the unused `LazyData` field was removed.
+* `gen_params()` and `get_token()` now read the credentials from the
+  environment variables `TEXTRA_API_KEY`, `TEXTRA_API_SECRET` and
+  `TEXTRA_NAME` by default, so that keys need not be written in scripts.
+  Passing them explicitly still works. An unset variable now raises an
+  informative error instead of sending an empty credential.
 * Documentation fixes: `textra()` is a translation model, not a
   transliteration one; `name` in `gen_params()` is the login ID; broken
   examples in `post_request()` and `extract_result()` were corrected.

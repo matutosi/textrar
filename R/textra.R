@@ -42,13 +42,18 @@ textra <- function(text, params, model = "transLM", from = "en", to = "ja"){
 #'
 #' @examples
 #' \dontrun{
+#' # Using the credentials stored in .Renviron (recommended).
+#' token <- get_token()
+#'
+#' # Or passing them explicitly.
 #' key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
 #' secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
 #' token <- get_token(key = key, secret = secret)
 #' }
 #' 
 #' @export
-get_token <- function(key, secret){
+get_token <- function(key = textra_env("TEXTRA_API_KEY"),
+                      secret = textra_env("TEXTRA_API_SECRET")){
   token_url <- paste0(base_url(), "/oauth2/token.php")
   token_req <- httr::POST(
     url = token_url,
@@ -72,15 +77,34 @@ get_token <- function(key, secret){
 #' This function generates a list of parameters 
 #' that can be used to make an API call.
 #'
-#' @param key The API key.
-#' @param secret The API secret.
-#' @param name The login ID of the 'TexTra' account.
+#' @param key The API key. Defaults to the environment variable
+#'   `TEXTRA_API_KEY`.
+#' @param secret The API secret. Defaults to the environment variable
+#'   `TEXTRA_API_SECRET`.
+#' @param name The login ID of the 'TexTra' account. Defaults to the
+#'   environment variable `TEXTRA_NAME`.
 #' @param api_name The name of the API to use. Defaults to "mt".
+#'
+#' @details
+#' Storing the credentials in the environment rather than in your scripts
+#' keeps them out of version control and out of shared files. Add the
+#' following lines to your user `.Renviron` file, which
+#' `usethis::edit_r_environ()` opens, and restart R.
+#'
+#' ```
+#' TEXTRA_API_KEY=your_api_key
+#' TEXTRA_API_SECRET=your_api_secret
+#' TEXTRA_NAME=your_login_id
+#' ```
 #'
 #' @return A list of parameters.
 #'
 #' @examples
 #' \dontrun{
+#' # Using the credentials stored in .Renviron (recommended).
+#' params <- gen_params()
+#'
+#' # Or passing them explicitly.
 #' key <- "abcdefghijklmnopqrstuvw01234567890abcdef1" # API key
 #' secret <- "xyzabcdefghijklmnopqrstuvw012345"       # API secret
 #' name <- "login_ID"                                 # login_ID
@@ -88,7 +112,10 @@ get_token <- function(key, secret){
 #' }
 #'
 #' @export
-gen_params <- function(key, secret, name, api_name = "mt"){
+gen_params <- function(key = textra_env("TEXTRA_API_KEY"),
+                       secret = textra_env("TEXTRA_API_SECRET"),
+                       name = textra_env("TEXTRA_NAME"),
+                       api_name = "mt"){
   token <- get_token(key, secret)
   params <- 
     list(
@@ -164,4 +191,28 @@ extract_result <- function(res){
 #' @export
 base_url <- function(){
   return("https://mt-auto-minhon-mlt.ucri.jgn-x.jp")
+}
+
+#' Read a credential from an environment variable
+#'
+#' Internal helper. Fails with an actionable message when the variable is
+#' unset, instead of letting an empty string reach the API.
+#'
+#' @param var The name of the environment variable.
+#'
+#' @return A character string containing the value of the variable.
+#'
+#' @noRd
+textra_env <- function(var){
+  value <- Sys.getenv(var)
+  if(!nzchar(value)){
+    stop("Environment variable '", var, "' is not set.
+",
+         "  Add it to your .Renviron file ",
+         "(`usethis::edit_r_environ()` opens it) and restart R,
+",
+         "  or pass the value directly.",
+         call. = FALSE)
+  }
+  return(value)
 }
