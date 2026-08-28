@@ -218,7 +218,7 @@ extract_result <- function(res){
 #'
 #' Internal workhorse behind [extract_result()].
 #'
-#' @param res The response object returned by [api_post()].
+#' @param res The response object returned by `api_post()`.
 #'
 #' @return A character string containing the translated text.
 #'
