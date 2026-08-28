@@ -13,6 +13,9 @@
   `TEXTRA_NAME` by default, so that keys need not be written in scripts.
   Passing them explicitly still works. An unset variable now raises an
   informative error instead of sending an empty credential.
+* Added a `testthat` (edition 3) suite. Most tests run without touching the
+  network; the ones that call the API are skipped unless `TEXTRA_TEST_LIVE`
+  is set, so that they do not consume the API quota on every check.
 * Documentation fixes: `textra()` is a translation model, not a
   transliteration one; `name` in `gen_params()` is the login ID; broken
   examples in `post_request()` and `extract_result()` were corrected.
