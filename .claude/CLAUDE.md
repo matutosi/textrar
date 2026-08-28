@@ -26,6 +26,13 @@
 
 ### 現在の状態
 
+- 2026-08-28 20:23 (MATUTOSI_DP)
+  **win-builder・rhub とも OK/success で完了した**．win-builder: Status OK
+  (R-devel)．rhub: linux・macos・windows (R-devel) すべて success
+  (run https://github.com/matutosi/textrar/actions/runs/33202065772)．
+  **CRAN への最終提出はユーザが対話型の R コンソールで `devtools::release()`
+  を実行する** (このセッションは非対話のため実行不可，との判断)．
+
 - 2026-08-28 19:05 (MATUTOSI_DP)
   **CRAN 0.9.0 提出準備を実施した**．`cran-comments.md` を書き直し，roxygen の
   リンク切れ (`api_post()` が `@noRd` で未解決) を修正．`R CMD check` は 0/0/0，
@@ -74,12 +81,10 @@
   `post_request()`・`extract_result()`・`base_url()` は警告を出す包みになり，
   実装は `api_post()`・`api_extract()`・`api_base_url()` へ移した．
   **次の版 (0.10.0 か 1.0.0) で `@export` ごと削除する**．CRAN 上の逆依存はゼロ．
-- **【進行中 2026-08-28】CRAN 0.9.0 提出準備**．残っているのは結果待ちと最終提出のみ:
-  1. win-builder のメール結果待ち (提出は 08-28 19:0x 頃，15-30分後着)
-  2. rhub (linux/macos/windows) の GitHub Actions 結果待ち
-     (https://github.com/matutosi/textrar/actions)
-  3. 両方 OK なら CRAN へ提出 (`devtools::release()` か
-     https://cran.r-project.org/submit.html ヘウェブ提出)
+- **【要対応 2026-08-28】CRAN 0.9.0 の最終提出はユーザが行う**．
+  win-builder (OK)・rhub (linux/macos/windows すべて success) は完了済み．
+  **対話型の R コンソール (RStudio 等) で `devtools::release()` を実行する**
+  (このセッションは非対話のため，確認プロンプトに答えられず実行できない)．
   - 0.9.0 は**後方互換ではない** (失敗が NULL からエラーへ)．NEWS に Breaking と明記済み．
 - **【完了 2026-08-28】`develop` を `main` へ fast-forward merge・push 済み**．
   main・develop とも `8ebfe14`．CRAN 版 (0.8.0) との差は今回の 0.9.0 提出で解消予定．
