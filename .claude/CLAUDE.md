@@ -26,6 +26,11 @@
 
 ### 現在の状態
 
+- 2026-08-28 16:52 (MATUTOSI_DP)
+  **testthat (edition 3) を導入した**．通信しないテスト 30 件と，実 API の 4 件．
+  実 API の分は `TEXTRA_TEST_LIVE` が無ければ skip するので，毎回の check で枠を消費しない．
+  `devtools::test()` は 34 件通過 (実 API 込み)．
+
 - 2026-08-28 16:36 (MATUTOSI_DP)
   **鍵の漏洩を塞ぎ，環境変数から読む形へ移した** (`develop` に3コミット)．
   `R CMD check` は 0 errors / 0 warnings / 0 notes．実 API で往復も確認済み．
@@ -42,11 +47,12 @@
 
 ### 次にやること
 
-- **【判断待ち】testthat の導入**．現状のテストは `tests/spelling.R` だけ．
-  通信しないテスト (`api_param` の組み立て・`extract_result()` の JSON パース・
-  `textra_env()` の異常系) と，`skip_on_cran()` 付きの実 API テストの2層を想定．
+- **【完了 2026-08-28】testthat の導入**．実 API のテストを手元で回すときは
+  `TEXTRA_TEST_LIVE` を立てる (`$env:TEXTRA_TEST_LIVE = '1'`)．無いと skip される．
 - **【判断待ち】R3: エラーを `stop()` にする**．今は HTTP ステータスも `resultset$code` も
   見ておらず，認証失敗などが**静かに `NULL`** になる．
+  `test-extract_result.R` でこの現状の挙動を固定してあるので，変えるときは
+  そのテストが落ちて気づける (落ちたら期待値のほうを書き換える)．
 - **【判断待ち】R2: `` `$`(_, "x") `` の連鎖を普通の `$` 連鎖に戻す**．
   R 4.2 縛りが外れ，`Depends` を下げられる．
 - **【判断待ち】R5: `post_request()`・`extract_result()`・`base_url()` を export から外す**．
