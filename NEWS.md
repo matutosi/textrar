@@ -6,8 +6,10 @@
   the source package.
 * Enabled TLS certificate verification: `get_token()` and `post_request()` no
   longer set `ssl_verifypeer = FALSE`.
-* `DESCRIPTION` now declares the R version the code actually needs
-  (R >= 4.2.0), and the unused `LazyData` field was removed.
+* The responses are now parsed with plain `$` extraction instead of the
+  `` `$`(_, "x") `` pipe placeholder. The behaviour is unchanged, but the
+  package no longer needs R 4.2: `DESCRIPTION` declares R >= 3.6, which is
+  what 'httr' asks for. The unused `LazyData` field was removed.
 * `gen_params()` and `get_token()` now read the credentials from the
   environment variables `TEXTRA_API_KEY`, `TEXTRA_API_SECRET` and
   `TEXTRA_NAME` by default, so that keys need not be written in scripts.

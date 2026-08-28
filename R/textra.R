@@ -64,11 +64,9 @@ get_token <- function(key = textra_env("TEXTRA_API_KEY"),
     ),
     encode = "form"
   )
-  token <- 
-    token_req |>
-    httr::content("text", encoding = "UTF-8") |>
-    jsonlite::fromJSON() |>
-    `$`(_, "access_token")
+  parsed <- jsonlite::fromJSON(
+    httr::content(token_req, "text", encoding = "UTF-8"))
+  token <- parsed$access_token
   return(token)
 }
 
@@ -169,15 +167,9 @@ post_request <- function(params, text){
 #'
 #' @export
 extract_result <- function(res){
-  res_list <- 
-    res |>
-    httr::content("text", encoding = "UTF-8") |>
-    jsonlite::fromJSON()
-  translated <- 
-    res_list |>
-    `$`(_, "resultset") |>
-    `$`(_, "result") |>
-    `$`(_, "text")
+  res_list <- jsonlite::fromJSON(
+    httr::content(res, "text", encoding = "UTF-8"))
+  translated <- res_list$resultset$result$text
   return(translated)
 }
 
